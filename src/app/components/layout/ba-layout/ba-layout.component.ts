@@ -4,9 +4,9 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  templateUrl: './ba-layout.component.html',
+  styleUrl: './ba-layout.component.css',
 })
 export class AppComponent {
-  title = 'bizaway-assessment';
+  title = 'app-trips';
 }
