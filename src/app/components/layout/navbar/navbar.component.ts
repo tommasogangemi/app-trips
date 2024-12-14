@@ -8,6 +8,6 @@ import { ButtonComponent } from '../../lib/button/button.component';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class BaNavbarComponent {
+export class NavbarComponent {
   logoUrl = 'https://bizaway.com/wp-content/uploads/2021/09/Logo-Bizaway.svg';
 }
