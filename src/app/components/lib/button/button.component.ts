@@ -3,13 +3,15 @@ import {
   BA_BUTTON_COLORS,
   BA_BUTTON_DEFAULT_CLASS,
 } from './button.style-config';
+import { IconDefinition } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export type BaButtonVariant = 'filled' | 'outlined' | 'text';
 export type BaButtonColor = 'primary' | 'black' | 'neutral';
 
 @Component({
   selector: 'button[ba]',
-  imports: [],
+  imports: [FontAwesomeModule],
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
   host: {
@@ -23,6 +25,7 @@ export class ButtonComponent {
   class = input<string>();
   variant = input<BaButtonVariant>('filled');
   color = input<BaButtonColor>('black');
+  icon = input<IconDefinition>();
 
   /**
    * Takes the string from a class attribute and removes duplicates.

@@ -1,7 +1,7 @@
 import { BaButtonColor, BaButtonVariant } from './button.component';
 
 export const BA_BUTTON_DEFAULT_CLASS =
-  'rounded-full px-2 py-1 font-medium transition-colors';
+  'rounded-full px-3 py-1 font-medium transition-colors';
 
 export const BA_BUTTON_COLORS: Record<
   BaButtonColor,

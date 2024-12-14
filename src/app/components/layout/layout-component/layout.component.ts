@@ -8,6 +8,4 @@ import { BaNavbarComponent } from '../navbar/navbar.component';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
 })
-export class AppComponent {
-  title = 'app-trips';
-}
+export class AppComponent {}

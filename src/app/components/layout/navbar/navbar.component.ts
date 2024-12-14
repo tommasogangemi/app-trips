@@ -1,9 +1,10 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
+import { ButtonComponent } from '../../lib/button/button.component';
 
 @Component({
   selector: 'ba-navbar',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, ButtonComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
