@@ -11,7 +11,7 @@ interface ResourceListLoadConfig {
 
 @Injectable()
 /**
- * A service to handle fetching and managing a the state relative to a list of resources.
+ * Handles fetching and managing a the state relative to a list of resources.
  */
 export class ResourceListService<T> {
   data = signal<T[]>([]);
