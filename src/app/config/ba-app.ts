@@ -4,9 +4,7 @@ export interface BaAppConfig {
   endpointRoot: string;
 }
 
-export const BA_APP_CONFIG = new InjectionToken<BaAppConfig>(
-  'BizAway application configuration'
-);
+export const BA_APP_CONFIG = new InjectionToken<BaAppConfig>('BaAppConfig');
 
 export const BA_APP_CONFIG_VARIABLE: BaAppConfig = {
   // This should be declared in a .env file and change based on the deployed env,

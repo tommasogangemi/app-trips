@@ -1,11 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { TripsService } from './trips.service';
+import { ROOT_TESTING_PROVIDERS } from '../../utils/testing';
 
-describe('TripsServiceService', () => {
+describe('TripsService', () => {
   let service: TripsService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: ROOT_TESTING_PROVIDERS,
+    });
     service = TestBed.inject(TripsService);
   });
 

@@ -1,8 +1,8 @@
 export interface GetListResponse<T> {
   items: T[];
-  total: 1011;
-  page: 1;
-  limit: 100;
+  total: number;
+  page: number;
+  limit: number;
 }
 
 export interface ListQueryPayload {
