@@ -64,5 +64,26 @@ describe('ResourceListService', () => {
       await service.load('test-endpoint');
       expect(service.loading()).toBeFalse();
     });
+
+    it('should concatenate new data to existing data when keepData is true', async () => {
+      const initialData = [{ id: 1 }];
+      const newData = [{ id: 2 }];
+      service.data.set(initialData);
+
+      const mockResponse: GetListResponse<unknown> = {
+        items: newData,
+        total: 2,
+        page: 2,
+        limit: 10,
+      };
+      spyOn(apiService, 'getList').and.returnValue(
+        Promise.resolve(mockResponse)
+      );
+
+      await service.load('test-endpoint', {}, { keepData: true });
+      expect(service.data()).toEqual([...initialData, ...newData]);
+      expect(service.totalCount()).toBe(mockResponse.total);
+      expect(service.page()).toBe(mockResponse.page);
+    });
   });
 });

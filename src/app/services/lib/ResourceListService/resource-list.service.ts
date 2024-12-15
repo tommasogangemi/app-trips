@@ -2,6 +2,13 @@ import { Injectable, signal } from '@angular/core';
 import { ApiService } from '../ApiService/api.service';
 import { ListQueryPayload } from '../../../../types/api';
 
+interface ResourceListLoadConfig {
+  /**
+   * Whether to keep the existing data when loading new data and concatenate the nes data to the existing one.
+   */
+  keepData?: boolean;
+}
+
 @Injectable()
 export class ResourceListService<T> {
   data = signal<T[]>([]);
@@ -13,6 +20,7 @@ export class ResourceListService<T> {
   async load(
     endpoint: string,
     queryPayload?: ListQueryPayload,
+    config: ResourceListLoadConfig = {},
     fetchParams?: RequestInit
   ) {
     this.loading.set(true);
@@ -24,7 +32,12 @@ export class ResourceListService<T> {
         queryPayload,
         fetchParams
       );
-      this.data.set(response.items);
+
+      if (config.keepData) {
+        this.data.update((prevData) => [...prevData, ...response.items]);
+      } else {
+        this.data.set(response.items);
+      }
       this.totalCount.set(response.total);
       this.page.set(response.page);
     } catch (error) {
