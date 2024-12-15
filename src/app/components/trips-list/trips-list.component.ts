@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../lib/button/button.component';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { ApiService } from '../../services/ApiService/api.service';
+import { TripsService } from '../../services/TripsService/trips.service';
 
 @Component({
   selector: 'ba-trips-list',
@@ -12,9 +12,9 @@ import { ApiService } from '../../services/ApiService/api.service';
 export class TripsListComponent {
   coffeeIcon = faCoffee;
 
-  constructor(private getListService: ApiService) {
-    getListService
-      .getList('trips')
+  constructor(public tripsService: TripsService) {
+    tripsService.list
+      .load('trips', { pagination: { limit: 50, page: 1 } })
       .then((r) => console.log('aaaaaaaaaaaaaa', r));
   }
 }

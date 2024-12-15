@@ -3,12 +3,10 @@ import {
   APIQueryPayload,
   GetListResponse,
   ListQueryPayload,
-} from '../../../types/api';
-import { BA_APP_CONFIG } from '../../config/ba-app';
+} from '../../../../types/api';
+import { BA_APP_CONFIG } from '../../../config/ba-app';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 /**
  * Interface between the app and the API,
  * handles data transformation from App specific domain to HTTP domain.

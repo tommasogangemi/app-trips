@@ -1,4 +1,3 @@
-<p>ba-trips-list works!</p>
 <div>
   <button ba variant="outlined" color="primary" [icon]="coffeeIcon">
     Text
@@ -15,4 +14,10 @@
   </button>
   <button ba variant="filled" color="neutral">Text</button>
   <button ba variant="text" color="neutral">Text</button>
+
+  <section>
+    @for (item of tripsService.list.list(); track item.id) {
+    <div>{{ item.title }}</div>
+    }
+  </section>
 </div>
