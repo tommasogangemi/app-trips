@@ -2,6 +2,9 @@ import { Injectable, signal } from '@angular/core';
 import { ApiService } from '../ApiService/api.service';
 
 @Injectable()
+/**
+ * A service to handle fetching and managing a the state relative to the detail of a resource.
+ */
 export class ResourceDetailService<T> {
   data = signal<T | undefined>(undefined);
   loading = signal<boolean>(false);
