@@ -4,7 +4,6 @@ import {
   GetListResponse,
   ListQueryPayload,
 } from '../../../types/api';
-import { FetchServiceBase } from '../FetchServiceBase/FetchServiceBase';
 import { BA_APP_CONFIG } from '../../config/ba-app';
 
 @Injectable({
@@ -12,9 +11,34 @@ import { BA_APP_CONFIG } from '../../config/ba-app';
 })
 /**
  * Interface between the app and the API,
- * handles transformation from App domain models to HTTP ones
+ * handles data transformation from App specific domain to HTTP domain.
+ *
+ * Can be extended to support more complex API interactions, such as POST, PUT, DELETE, etc.
  */
-export class GetListService extends FetchServiceBase {
+export class ApiService {
+  private rootEndpoint = inject(BA_APP_CONFIG).endpointRoot;
+
+  /**
+   * Takes the relative endpoint path and returns the full endpoint
+   *
+   * @param endpoint relative endpoint path
+   * @returns
+   */
+  protected getEndpointWithRoot(endpoint: string): string {
+    return `${this.rootEndpoint}${endpoint}`;
+  }
+
+  /**
+   * @param queryPayload query payload formatted as needed for the API
+   * @returns the query string with the correct format for the API
+   */
+  private apiQueryPayloadToQs(queryPayload: APIQueryPayload): string {
+    return Object.entries(queryPayload)
+      .filter(([, value]) => value !== undefined)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&');
+  }
+
   /**
    * Transforms the App domain query payload to the API query string
    *
@@ -22,7 +46,7 @@ export class GetListService extends FetchServiceBase {
    * @returns the query string with the correct format for the API
    */
   private getQsFromQueryPayload(payload: ListQueryPayload = {}): string {
-    const mappedPayload: APIQueryPayload = {
+    const apiPayload: APIQueryPayload = {
       sortBy: payload.sort?.field,
       sortOrder: payload.sort?.order,
       page: payload.pagination?.page,
@@ -30,10 +54,7 @@ export class GetListService extends FetchServiceBase {
       ...payload.filter,
     };
 
-    return Object.entries(mappedPayload)
-      .filter(([, value]) => value !== undefined)
-      .map(([key, value]) => `${key}=${value}`)
-      .join('&');
+    return this.apiQueryPayloadToQs(apiPayload);
   }
 
   /**
@@ -51,7 +72,7 @@ export class GetListService extends FetchServiceBase {
     return `${this.getEndpointWithRoot(endpoint)}${qs ? `?${qs}` : ''}`;
   }
 
-  async get<T>(
+  async getList<T>(
     endpoint: string,
     queryPayload: ListQueryPayload = {},
     fetchParams: RequestInit = {}
@@ -61,9 +82,5 @@ export class GetListService extends FetchServiceBase {
       fetchParams
     );
     return res.json();
-  }
-
-  constructor() {
-    super(inject(BA_APP_CONFIG));
   }
 }
