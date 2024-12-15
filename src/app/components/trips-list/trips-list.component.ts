@@ -15,6 +15,6 @@ export class TripsListComponent {
   constructor(public tripsService: TripsService) {
     tripsService.list
       .load('trips', { pagination: { limit: 50, page: 1 } })
-      .then((r) => console.log('aaaaaaaaaaaaaa', r));
+      .then((r) => console.log('ba-trips-list tripsService.list', r));
   }
 }
