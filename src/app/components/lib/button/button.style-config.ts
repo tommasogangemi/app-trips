@@ -19,7 +19,7 @@ export const BA_BUTTON_COLORS: Record<
   },
   neutral: {
     filled: 'bg-neutral-500 text-white hover:bg-neutral-600',
-    outlined: 'border border-neutral-500 text-neutral-800 hover:bg-neutral-100',
+    outlined: 'border border-neutral-500 text-neutral-600 hover:bg-neutral-100',
     text: 'text-neutral-500 hover:text-neutral-400',
   },
 };

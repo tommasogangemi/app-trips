@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { GetListService } from './getlist.service';
 
 describe('ResourceListServiceService', () => {
-  let service: GetListService<unknown>;
+  let service: GetListService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
