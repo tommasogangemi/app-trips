@@ -62,12 +62,21 @@ export class ApiService {
    * @param queryPayload the App domain query payload
    * @returns the endpoint with the correct query string compliant with the API
    */
-  private getEndpointWithQuery(
+  private getListEndpointWithQuery(
     endpoint: string,
     queryPayload: ListQueryPayload = {}
   ): string {
     const qs = this.getQsFromQueryPayload(queryPayload);
     return `${this.getEndpointWithRoot(endpoint)}${qs ? `?${qs}` : ''}`;
+  }
+
+  /**
+   * @param endpoint the relative endpoint of the needed resource
+   * @param id the id of the element to fetch
+   * @returns the endpoint with the id appended
+   */
+  private getDetailEndpoint(endpoint: string, id: string): string {
+    return `${this.getEndpointWithRoot(endpoint)}/${id}`;
   }
 
   async getList<T>(
@@ -76,9 +85,18 @@ export class ApiService {
     fetchParams: RequestInit = {}
   ): Promise<GetListResponse<T>> {
     const res = await fetch(
-      this.getEndpointWithQuery(endpoint, queryPayload),
+      this.getListEndpointWithQuery(endpoint, queryPayload),
       fetchParams
     );
+    return res.json();
+  }
+
+  async getOne<T>(
+    endpoint: string,
+    id: string,
+    fetchParams: RequestInit = {}
+  ): Promise<T> {
+    const res = await fetch(this.getDetailEndpoint(endpoint, id), fetchParams);
     return res.json();
   }
 }

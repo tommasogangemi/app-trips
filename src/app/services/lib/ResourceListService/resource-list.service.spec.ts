@@ -31,7 +31,7 @@ describe('ResourceListService', () => {
       expect(service.error()).toBeUndefined();
     });
 
-    it('should set list, totalCount, and page properties with the fetched data', async () => {
+    it('should set data, totalCount, and page properties with the fetched data', async () => {
       const mockResponse: GetListResponse<unknown> = {
         items: [{ id: 1 }],
         total: 1,
@@ -43,7 +43,7 @@ describe('ResourceListService', () => {
       );
 
       await service.load('test-endpoint');
-      expect(service.list()).toEqual(mockResponse.items);
+      expect(service.data()).toEqual(mockResponse.items);
       expect(service.totalCount()).toBe(mockResponse.total);
       expect(service.page()).toBe(mockResponse.page);
     });

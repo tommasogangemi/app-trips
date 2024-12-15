@@ -75,4 +75,35 @@ describe('ApiService', () => {
       expect(response).toEqual(mockResponse);
     });
   });
+
+  describe('getOne', () => {
+    it('should invoke the fetch method with the correct endpoint and id', async () => {
+      const endpoint = 'test-endpoint';
+      const id = '123';
+
+      const fetchSpy = spyOn(window, 'fetch').and.returnValue(
+        Promise.resolve(new Response('{}'))
+      );
+
+      await service.getOne(endpoint, id);
+
+      expect(fetchSpy).toHaveBeenCalledWith(
+        'https://iy3ipnv3uc.execute-api.eu-west-1.amazonaws.com/Prod/v1/test-endpoint/123',
+        {}
+      );
+    });
+
+    it('should return the response of the fetch call when invoked', async () => {
+      const endpoint = 'test-endpoint';
+      const id = '123';
+      const mockResponse = { id: '123', name: 'Test Item' };
+
+      spyOn(window, 'fetch').and.returnValue(
+        Promise.resolve(new Response(JSON.stringify(mockResponse)))
+      );
+
+      const response = await service.getOne(endpoint, id);
+      expect(response).toEqual(mockResponse);
+    });
+  });
 });

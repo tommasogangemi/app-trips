@@ -4,6 +4,7 @@ import { ROOT_TESTING_PROVIDERS } from '../../utils/testing';
 import { ApiService } from '../lib/ApiService/api.service';
 import { ResourceListService } from '../lib/ResourceListService/resource-list.service';
 import { Trip } from '../../../types/trips';
+import { ResourceDetailService } from '../lib/ResourceDetailService/resource-detail.service';
 
 describe('TripsService', () => {
   let service: TripsService;
@@ -38,7 +39,7 @@ describe('TripsService', () => {
       );
 
       await service.list.load('trips-endpoint');
-      expect(service.list.list()).toEqual(mockResponse.items);
+      expect(service.list.data()).toEqual(mockResponse.items);
       expect(service.list.totalCount()).toBe(mockResponse.total);
       expect(service.list.page()).toBe(mockResponse.page);
     });
@@ -49,6 +50,30 @@ describe('TripsService', () => {
 
       await service.list.load('trips-endpoint');
       expect(service.list.error()).toBe(mockError);
+    });
+  });
+
+  describe('detail', () => {
+    it('should have a ResourceDetailService instance for trip details', () => {
+      expect(service.detail).toBeInstanceOf(ResourceDetailService);
+    });
+
+    it('should load trip details using the ResourceDetailService', async () => {
+      const mockResponse = { id: '1', title: 'Test Trip' } as Trip;
+      spyOn(apiService, 'getOne').and.returnValue(
+        Promise.resolve(mockResponse)
+      );
+
+      await service.detail.load('trips-endpoint', '1');
+      expect(service.detail.data()).toEqual(mockResponse);
+    });
+
+    it('should handle errors when loading trip details', async () => {
+      const mockError = new Error('Fetch error');
+      spyOn(apiService, 'getOne').and.returnValue(Promise.reject(mockError));
+
+      await service.detail.load('trips-endpoint', '1');
+      expect(service.detail.error()).toBe(mockError);
     });
   });
 });

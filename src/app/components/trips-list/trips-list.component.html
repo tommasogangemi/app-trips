@@ -16,7 +16,7 @@
   <button ba variant="text" color="neutral">Text</button>
 
   <section>
-    @for (item of tripsService.list.list(); track item.id) {
+    @for (item of tripsService.list.data(); track item.id) {
     <div>{{ item.title }}</div>
     }
   </section>
