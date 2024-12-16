@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TripsListComponent } from './trips-list.component';
-import { ROOT_TESTING_PROVIDERS } from '../../utils/testing';
+import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
 
 describe('TripsListComponent', () => {
   let component: TripsListComponent;

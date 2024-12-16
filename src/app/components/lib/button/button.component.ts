@@ -4,14 +4,12 @@ import {
   BA_BUTTON_DEFAULT_CLASS,
 } from './button.style-config';
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export type BaButtonVariant = 'filled' | 'outlined' | 'text';
 export type BaButtonColor = 'primary' | 'black' | 'neutral';
 
 @Component({
   selector: 'button[ba]',
-  imports: [FontAwesomeModule],
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
   host: {

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../lib/button/button.component';
+import { ButtonComponent } from '../../lib/button/button.component';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { TripsService } from '../../services/TripsService/trips.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TripsService } from '../../../services/TripsService/trips.service';
+import { TripCardComponent } from '../trip-card/trip-card.component';
 
 @Component({
   selector: 'ba-trips-list',
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, TripCardComponent, FontAwesomeModule],
   templateUrl: './trips-list.component.html',
   styleUrl: './trips-list.component.css',
 })
