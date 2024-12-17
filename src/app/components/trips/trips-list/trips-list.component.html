@@ -20,13 +20,9 @@
   <button ba variant="filled" color="neutral">Text</button>
   <button ba variant="text" color="neutral">Text</button>
 
-  <ba-trip-card>
-    <div>content</div>
-  </ba-trip-card>
-
-  <section>
+  <section class="flex gap-4 flex-wrap p-4">
     @for (item of tripsService.list.data(); track item.id) {
-    <div>{{ item.title }}</div>
+    <ba-trip-card [trip]="item" />
     }
   </section>
 </div>

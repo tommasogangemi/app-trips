@@ -1,3 +1,44 @@
-<ng-content select="trip-card-header"></ng-content>
-<ng-content></ng-content>
-<p>trip-card works!</p>
+<div class="w-72">
+  <div class="relative aspect-square rounded-lg overflow-hidden">
+    <img [ngSrc]="trip().thumbnailUrl" alt="trip-thumbnail" fill />
+  </div>
+
+  <div class="mt-1 leading-none">
+    <div class="flex justify-between">
+      <span class="font-medium">{{ trip().title }}</span>
+
+      <div class="flex gap-2 items-center">
+        <ba-icon-highlighter
+          [text]="trip().rating"
+          [hoverColor]="'hover:text-yellow-400'"
+        >
+          <ng-template #icon let-class="iconClass">
+            <fa-icon [icon]="starIcon" size="sm" [class]="class" />
+          </ng-template>
+        </ba-icon-highlighter>
+
+        @if (trip().tags.length) {
+        <ba-icon-highlighter
+          [text]="trip().tags.length"
+          [hoverColor]="'hover:text-blue-400'"
+        >
+          <ng-template #icon let-class="iconClass">
+            <fa-icon [icon]="tagIcon" size="sm" [class]="class" />
+          </ng-template>
+        </ba-icon-highlighter>
+        }
+      </div>
+    </div>
+
+    <div class="mb-1 text-sm text-neutral-400">
+      <span>
+        {{ trip().verticalType | titlecase }} -
+        {{ trip().co2 | number : "1.0-0" }} kg of CO₂
+      </span>
+    </div>
+
+    <div>
+      <span class="text-sm font-medium">{{ trip().price | currency }}</span>
+    </div>
+  </div>
+</div>

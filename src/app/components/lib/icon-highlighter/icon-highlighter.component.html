@@ -1,0 +1,8 @@
+<div>
+  @if(iconElement()) {
+  <ng-container
+    *ngTemplateOutlet="iconElement()!; context: { iconClass: iconClass() }"
+  />
+  }
+  <span class="text-sm">{{ text() }}</span>
+</div>
