@@ -7,6 +7,10 @@ import {
   TemplateRef,
 } from '@angular/core';
 
+interface IconTemplateRefContext {
+  iconClass: string;
+}
+
 @Component({
   selector: 'ba-icon-highlighter',
   imports: [NgTemplateOutlet],
@@ -20,7 +24,7 @@ export class IconHighlighterComponent {
   text = input<string | number | undefined>();
   hoverColor = input<string | undefined>();
 
-  iconElement = contentChild<TemplateRef<{ iconClass: string }>>('icon');
+  iconElement = contentChild<TemplateRef<IconTemplateRefContext>>('icon');
 
   iconClass = computed(() => {
     let finalIconClass = this.BASE_ICON_CLASS;

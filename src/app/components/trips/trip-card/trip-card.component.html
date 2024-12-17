@@ -8,14 +8,19 @@
       <span class="font-medium">{{ trip().title }}</span>
 
       <div class="flex gap-2 items-center">
-        <ba-icon-highlighter
-          [text]="trip().rating"
-          [hoverColor]="'hover:text-yellow-400'"
-        >
-          <ng-template #icon let-class="iconClass">
-            <fa-icon [icon]="starIcon" size="sm" [class]="class" />
-          </ng-template>
-        </ba-icon-highlighter>
+        <ba-tooltip>
+          <ba-icon-highlighter
+            ngProjectAs="activator"
+            [text]="trip().rating"
+            [hoverColor]="'hover:text-yellow-400'"
+          >
+            <ng-template #icon let-class="iconClass">
+              <fa-icon [icon]="starIcon" size="sm" [class]="class" />
+            </ng-template>
+          </ba-icon-highlighter>
+
+          Helloo
+        </ba-tooltip>
 
         @if (trip().tags.length) {
         <ba-icon-highlighter
