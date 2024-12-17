@@ -1,5 +1,5 @@
 <div class="w-72">
-  <div class="relative aspect-square rounded-lg overflow-hidden">
+  <div class="relative aspect-square rounded-lg overflow-hidden -z-10">
     <img [ngSrc]="trip().thumbnailUrl" alt="trip-thumbnail" fill />
   </div>
 
@@ -19,7 +19,7 @@
             </ng-template>
           </ba-icon-highlighter>
 
-          Helloo
+          <ba-ratings-detail [ratedItem]="trip()" />
         </ba-tooltip>
 
         @if (trip().tags.length) {
@@ -45,5 +45,6 @@
     <div>
       <span class="text-sm font-medium">{{ trip().price | currency }}</span>
     </div>
+    <ba-ratings-detail [ratedItem]="trip()" />
   </div>
 </div>
