@@ -1,11 +1,11 @@
 <div>
   <button ba variant="outlined" color="primary">
-    <fa-icon ngProjectAs="ba-btn-icon" [icon]="coffeeIcon">coffeeI</fa-icon>
+    <fa-icon ngProjectAs="ba-btn-icon" [icon]="coffeeIcon" />
     Text
   </button>
   <button ba variant="filled" color="primary">Text</button>
   <button ba variant="text" color="primary">
-    <fa-icon ngProjectAs="ba-btn-icon" [icon]="coffeeIcon">coffeeI</fa-icon>
+    <fa-icon ngProjectAs="ba-btn-icon" [icon]="coffeeIcon" />
     Text
   </button>
 
@@ -14,13 +14,15 @@
   <button ba variant="text" color="black">Text</button>
 
   <button ba variant="outlined" color="neutral">
-    <fa-icon ngProjectAs="ba-btn-icon" [icon]="coffeeIcon">coffeeI</fa-icon>
+    <fa-icon ngProjectAs="ba-btn-icon" [icon]="coffeeIcon" />
     Text
   </button>
   <button ba variant="filled" color="neutral">Text</button>
   <button ba variant="text" color="neutral">Text</button>
 
-  <section class="flex gap-4 flex-wrap p-4">
+  <section
+    class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-3 xl:gap-6 p-3 md:p-6 xl:p-12"
+  >
     @for (item of tripsService.list.data(); track item.id) {
     <ba-trip-card [trip]="item" />
     }

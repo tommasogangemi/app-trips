@@ -1,10 +1,14 @@
-<div class="w-72">
-  <div class="relative aspect-square rounded-lg overflow-hidden -z-10">
-    <img [ngSrc]="trip().thumbnailUrl" alt="trip-thumbnail" fill />
+<div class="flex flex-row md:flex-col gap-3 md:gap-1">
+  <div class="relative aspect-square rounded-lg overflow-hidden -z-10 min-h-24">
+    <img
+      [ngSrc]="trip().thumbnailUrl"
+      [alt]="trip().title + ' - thumbnail'"
+      fill
+    />
   </div>
 
-  <div class="mt-1 leading-none">
-    <div class="flex justify-between">
+  <div class="leading-none w-full flex flex-col justify-center">
+    <div class="flex justify-between gap-2">
       <span class="font-medium">{{ trip().title }}</span>
 
       <div class="flex gap-2 items-center">
@@ -47,7 +51,7 @@
       </span>
     </div>
 
-    <div>
+    <div class="self-end md:self-auto">
       <span class="text-sm font-medium">
         {{ trip().price | currency : undefined : "symbol" : "1.0-0" }}
       </span>
