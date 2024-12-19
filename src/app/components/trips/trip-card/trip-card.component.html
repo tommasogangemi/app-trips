@@ -12,7 +12,7 @@
           <ba-icon-highlighter
             ngProjectAs="activator"
             [text]="trip().rating"
-            [hoverColor]="'hover:text-yellow-400'"
+            [hoverColorClass]="'hover:text-yellow-400'"
           >
             <ng-template #icon let-class="iconClass">
               <fa-icon [icon]="starIcon" size="sm" [class]="class" />
@@ -23,14 +23,19 @@
         </ba-tooltip>
 
         @if (trip().tags.length) {
-        <ba-icon-highlighter
-          [text]="trip().tags.length"
-          [hoverColor]="'hover:text-blue-400'"
-        >
-          <ng-template #icon let-class="iconClass">
-            <fa-icon [icon]="tagIcon" size="sm" [class]="class" />
-          </ng-template>
-        </ba-icon-highlighter>
+        <ba-tooltip>
+          <ba-icon-highlighter
+            ngProjectAs="activator"
+            [text]="trip().tags.length"
+            [hoverColorClass]="'hover:text-blue-400'"
+          >
+            <ng-template #icon let-class="iconClass">
+              <fa-icon [icon]="tagIcon" size="sm" [class]="class" />
+            </ng-template>
+          </ba-icon-highlighter>
+
+          <ba-tags-detail [tags]="trip().tags" />
+        </ba-tooltip>
         }
       </div>
     </div>
@@ -43,7 +48,9 @@
     </div>
 
     <div>
-      <span class="text-sm font-medium">{{ trip().price | currency }}</span>
+      <span class="text-sm font-medium">
+        {{ trip().price | currency : undefined : "symbol" : "1.0-0" }}
+      </span>
     </div>
   </div>
 </div>

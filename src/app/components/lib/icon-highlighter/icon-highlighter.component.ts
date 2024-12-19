@@ -22,15 +22,15 @@ export class IconHighlighterComponent {
     'mr-1 text-neutral-400 transition-colors ease-in duration-75';
 
   text = input<string | number | undefined>();
-  hoverColor = input<string | undefined>();
+  hoverColorClass = input<string | undefined>();
 
   iconElement = contentChild<TemplateRef<IconTemplateRefContext>>('icon');
 
   iconClass = computed(() => {
     let finalIconClass = this.BASE_ICON_CLASS;
 
-    if (this.hoverColor()) {
-      finalIconClass = `${finalIconClass} cursor-pointer ${this.hoverColor()!}`;
+    if (this.hoverColorClass()) {
+      finalIconClass = `${finalIconClass} cursor-pointer ${this.hoverColorClass()!}`;
     }
 
     return finalIconClass;
