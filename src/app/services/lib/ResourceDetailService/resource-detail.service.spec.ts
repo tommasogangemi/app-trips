@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { ResourceDetailService } from './resource-detail.service';
 import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
 import { ApiService } from '../ApiService/api.service';
@@ -10,10 +9,10 @@ describe('ResourceDetailService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [...ROOT_TESTING_PROVIDERS, ResourceDetailService],
+      providers: [...ROOT_TESTING_PROVIDERS],
     });
-    service = TestBed.inject(ResourceDetailService);
     apiService = TestBed.inject(ApiService);
+    service = new ResourceDetailService(apiService, 'test');
   });
 
   it('should be created', () => {
@@ -24,7 +23,7 @@ describe('ResourceDetailService', () => {
     it('should set loading to true and reset error before fetching data', async () => {
       spyOn(apiService, 'getOne').and.returnValue(Promise.resolve({}));
 
-      service.load('test-endpoint', '123');
+      service.load('123');
       expect(service.loading()).toBeTrue();
       expect(service.error()).toBeUndefined();
     });
@@ -35,7 +34,7 @@ describe('ResourceDetailService', () => {
         Promise.resolve(mockResponse)
       );
 
-      await service.load('test-endpoint', '123');
+      await service.load('123');
       expect(service.data()).toEqual(mockResponse);
     });
 
@@ -43,14 +42,14 @@ describe('ResourceDetailService', () => {
       const mockError = new Error('Fetch error');
       spyOn(apiService, 'getOne').and.returnValue(Promise.reject(mockError));
 
-      await service.load('test-endpoint', '123');
+      await service.load('123');
       expect(service.error()).toBe(mockError);
     });
 
     it('should set loading to false after fetching data', async () => {
       spyOn(apiService, 'getOne').and.returnValue(Promise.resolve({}));
 
-      await service.load('test-endpoint', '123');
+      await service.load('123');
       expect(service.loading()).toBeFalse();
     });
   });

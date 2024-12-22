@@ -61,7 +61,7 @@ export class ResourceListService<T> {
     queryPayload?: Omit<ListQueryPayload, 'pagination'>,
     fetchParams?: RequestInit
   ) {
-    this.load(
+    return this.load(
       {
         ...queryPayload,
         pagination: {

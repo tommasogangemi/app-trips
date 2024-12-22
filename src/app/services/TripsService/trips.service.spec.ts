@@ -38,17 +38,17 @@ describe('TripsService', () => {
         Promise.resolve(mockResponse)
       );
 
-      await service.list.load('trips-endpoint');
+      await service.list.load();
       expect(service.list.data()).toEqual(mockResponse.items);
       expect(service.list.totalCount()).toBe(mockResponse.total);
-      expect(service.list.page()).toBe(mockResponse.page);
+      expect(service.list.pagination().page).toBe(mockResponse.page);
     });
 
     it('should handle errors when loading trips', async () => {
       const mockError = new Error('Fetch error');
       spyOn(apiService, 'getList').and.returnValue(Promise.reject(mockError));
 
-      await service.list.load('trips-endpoint');
+      await service.list.load();
       expect(service.list.error()).toBe(mockError);
     });
   });
@@ -64,7 +64,7 @@ describe('TripsService', () => {
         Promise.resolve(mockResponse)
       );
 
-      await service.detail.load('trips-endpoint', '1');
+      await service.detail.load('1');
       expect(service.detail.data()).toEqual(mockResponse);
     });
 
@@ -72,7 +72,7 @@ describe('TripsService', () => {
       const mockError = new Error('Fetch error');
       spyOn(apiService, 'getOne').and.returnValue(Promise.reject(mockError));
 
-      await service.detail.load('trips-endpoint', '1');
+      await service.detail.load('1');
       expect(service.detail.error()).toBe(mockError);
     });
   });

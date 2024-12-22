@@ -10,10 +10,10 @@ describe('ResourceListService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [...ROOT_TESTING_PROVIDERS, ResourceListService],
+      providers: [...ROOT_TESTING_PROVIDERS],
     });
-    service = TestBed.inject(ResourceListService);
     apiService = TestBed.inject(ApiService);
+    service = new ResourceListService(apiService, 'test');
   });
 
   it('should be created', () => {
@@ -26,7 +26,7 @@ describe('ResourceListService', () => {
         Promise.resolve({ items: [], total: 0, page: 1, limit: 10 })
       );
 
-      service.load('test-endpoint');
+      service.load();
       expect(service.loading()).toBeTrue();
       expect(service.error()).toBeUndefined();
     });
@@ -42,17 +42,17 @@ describe('ResourceListService', () => {
         Promise.resolve(mockResponse)
       );
 
-      await service.load('test-endpoint');
+      await service.load();
       expect(service.data()).toEqual(mockResponse.items);
       expect(service.totalCount()).toBe(mockResponse.total);
-      expect(service.page()).toBe(mockResponse.page);
+      expect(service.pagination().page).toBe(mockResponse.page);
     });
 
     it('should set error property if fetching data fails', async () => {
       const mockError = new Error('Fetch error');
       spyOn(apiService, 'getList').and.returnValue(Promise.reject(mockError));
 
-      await service.load('test-endpoint');
+      await service.load();
       expect(service.error()).toBe(mockError);
     });
 
@@ -61,7 +61,7 @@ describe('ResourceListService', () => {
         Promise.resolve({ items: [], total: 0, page: 1, limit: 10 })
       );
 
-      await service.load('test-endpoint');
+      await service.load();
       expect(service.loading()).toBeFalse();
     });
 
@@ -80,10 +80,49 @@ describe('ResourceListService', () => {
         Promise.resolve(mockResponse)
       );
 
-      await service.load('test-endpoint', {}, { keepData: true });
+      await service.load({}, { keepData: true });
       expect(service.data()).toEqual([...initialData, ...newData]);
       expect(service.totalCount()).toBe(mockResponse.total);
-      expect(service.page()).toBe(mockResponse.page);
+      expect(service.pagination().page).toBe(mockResponse.page);
+    });
+  });
+
+  describe('loadNextPage', () => {
+    it('should load the next page of data and concatenate it to existing data', async () => {
+      const initialData = [{ id: 1 }];
+      const nextPageData = [{ id: 2 }];
+      service.data.set(initialData);
+
+      const mockResponse: GetListResponse<unknown> = {
+        items: nextPageData,
+        total: 2,
+        page: 2,
+        limit: 10,
+      };
+      spyOn(apiService, 'getList').and.returnValue(
+        Promise.resolve(mockResponse)
+      );
+
+      await service.loadNextPage();
+      expect(service.data()).toEqual([...initialData, ...nextPageData]);
+      expect(service.pagination().page).toBe(mockResponse.page);
+    });
+  });
+
+  describe('hasNextPage', () => {
+    it('should return true if there are more pages to load', () => {
+      service.totalCount.set(20);
+      service.pagination.set({ page: 1, limit: 10 });
+
+      expect(service.hasNextPage()).toBeTrue();
+    });
+
+    it('should return false if there are no more pages to load', () => {
+      service.totalCount.set(10);
+      service.pagination.set({ page: 1, limit: 10 });
+      service.data.set(Array.from({ length: 10 }, (_, i) => ({ id: i + 1 })));
+
+      expect(service.hasNextPage()).toBeFalse();
     });
   });
 });

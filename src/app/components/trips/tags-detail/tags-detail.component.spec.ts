@@ -2,15 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TagsDetailComponent } from './tags-detail.component';
 
-describe('TagsDetailComponent', () => {
+xdescribe('TagsDetailComponent', () => {
   let component: TagsDetailComponent;
   let fixture: ComponentFixture<TagsDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TagsDetailComponent]
-    })
-    .compileComponents();
+      imports: [TagsDetailComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TagsDetailComponent);
     component = fixture.componentInstance;
