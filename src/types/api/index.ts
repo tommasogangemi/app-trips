@@ -5,16 +5,20 @@ export interface GetListResponse<T> {
   limit: number;
 }
 
+export interface ListPaginationPayload {
+  page: number;
+  limit: number;
+}
+
+export interface ListSortPayload {
+  field: string;
+  order: 'ASC' | 'DESC';
+}
+
 export interface ListQueryPayload {
-  sort?: {
-    field: string;
-    order: 'ASC' | 'DESC';
-  };
+  sort?: ListSortPayload;
   filter?: Record<string, string>;
-  pagination?: {
-    page: number;
-    limit: number;
-  };
+  pagination?: ListPaginationPayload;
 }
 
 export interface APIQueryPayload {

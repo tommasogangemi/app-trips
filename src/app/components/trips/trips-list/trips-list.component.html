@@ -20,17 +20,30 @@
   <button ba variant="filled" color="neutral">Text</button>
   <button ba variant="text" color="neutral">Text</button> -->
 
-  <section
-    class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-3 xl:gap-6 p-3 md:p-6 xl:p-12"
-  >
-    @for (item of tripsService.list.data(); track item.id) {
-    <ba-trip-card [trip]="item" />
+  <section class="p-3 md:p-6 xl:p-12">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-3 xl:gap-6"
+    >
+      @for (item of tripsService.list.data(); track item.id) {
+      <ba-trip-card [trip]="item" />
+      }
+    </div>
+
+    @if(tripsService.list.hasNextPage() && !tripsService.list.loading()) {
+    <div class="w-full flex justify-center items-center mt-8">
+      <button
+        ba
+        variant="filled"
+        color="primary"
+        (click)="tripsService.list.loadNextPage()"
+      >
+        Load more
+      </button>
+    </div>
+    } @if (tripsService.list.loading()) {
+    <div class="w-full flex justify-center items-center mt-6">
+      <ba-circular-loader size="lg" />
+    </div>
     }
   </section>
-
-  @if (tripsService.list.loading()) {
-  <div class="w-full flex justify-center items-center py-4">
-    <ba-circular-loader size="lg" />
-  </div>
-  }
 </div>

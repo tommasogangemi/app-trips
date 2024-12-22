@@ -6,6 +6,8 @@ import { ResourceDetailService } from '../lib/ResourceDetailService/resource-det
 
 @Injectable({ providedIn: 'root' })
 export class TripsService {
-  list = new ResourceListService<Trip>(inject(ApiService));
-  detail = new ResourceDetailService<Trip>(inject(ApiService));
+  endpoint = 'trips';
+
+  list = new ResourceListService<Trip>(inject(ApiService), this.endpoint);
+  detail = new ResourceDetailService<Trip>(inject(ApiService), this.endpoint);
 }

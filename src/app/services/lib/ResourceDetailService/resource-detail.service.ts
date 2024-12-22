@@ -1,7 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { signal } from '@angular/core';
 import { ApiService } from '../ApiService/api.service';
 
-@Injectable()
 /**
  * Handles fetching and managing a the state related to the detail of a resource.
  */
@@ -10,13 +9,13 @@ export class ResourceDetailService<T> {
   loading = signal<boolean>(false);
   error = signal<Error | undefined>(undefined);
 
-  async load(endpoint: string, id: string, fetchParams?: RequestInit) {
+  async load(id: string, fetchParams?: RequestInit) {
     this.loading.set(true);
     this.error.set(undefined);
 
     try {
       const response = await this.apiService.getOne<T>(
-        endpoint,
+        this.endpoint,
         id,
         fetchParams
       );
@@ -28,5 +27,5 @@ export class ResourceDetailService<T> {
     }
   }
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private endpoint: string) {}
 }

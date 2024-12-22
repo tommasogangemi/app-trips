@@ -1,6 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, signal } from '@angular/core';
 import { ApiService } from '../ApiService/api.service';
-import { ListQueryPayload } from '../../../../types/api';
+import { ListPaginationPayload, ListQueryPayload } from '../../../../types/api';
 
 interface ResourceListLoadConfig {
   /**
@@ -9,7 +9,6 @@ interface ResourceListLoadConfig {
   keepData?: boolean;
 }
 
-@Injectable()
 /**
  * Handles fetching and managing a the state relative to a list of resources.
  */
@@ -18,10 +17,14 @@ export class ResourceListService<T> {
   loading = signal<boolean>(false);
   error = signal<Error | undefined>(undefined);
   totalCount = signal<number>(0);
-  page = signal<number>(1);
+  pagination = signal<ListPaginationPayload>({ page: 1, limit: 20 });
+  hasNextPage = computed<boolean>(() => this.data().length < this.totalCount());
+
+  private updatePaginationState(updatedPagination: ListPaginationPayload) {
+    this.pagination.set({ ...updatedPagination });
+  }
 
   async load(
-    endpoint: string,
     queryPayload?: ListQueryPayload,
     config: ResourceListLoadConfig = {},
     fetchParams?: RequestInit
@@ -31,7 +34,7 @@ export class ResourceListService<T> {
 
     try {
       const response = await this.apiService.getList<T>(
-        endpoint,
+        this.endpoint,
         queryPayload,
         fetchParams
       );
@@ -41,8 +44,12 @@ export class ResourceListService<T> {
       } else {
         this.data.set(response.items);
       }
+
       this.totalCount.set(response.total);
-      this.page.set(response.page);
+      this.updatePaginationState({
+        page: response.page,
+        limit: response.limit,
+      });
     } catch (error) {
       this.error.set(error as Error);
     } finally {
@@ -50,5 +57,22 @@ export class ResourceListService<T> {
     }
   }
 
-  constructor(private apiService: ApiService) {}
+  loadNextPage(
+    queryPayload?: Omit<ListQueryPayload, 'pagination'>,
+    fetchParams?: RequestInit
+  ) {
+    this.load(
+      {
+        ...queryPayload,
+        pagination: {
+          page: this.pagination().page + 1,
+          limit: this.pagination().limit,
+        },
+      },
+      { keepData: true },
+      fetchParams
+    );
+  }
+
+  constructor(private apiService: ApiService, private endpoint: string) {}
 }
