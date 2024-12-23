@@ -3,7 +3,9 @@
     class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-3 xl:gap-6"
   >
     @for (item of tripsService.list.data(); track item.id) {
-    <ba-trip-card [trip]="item" />
+    <a [routerLink]="'/trip/' + item.id" routerLinkActive="active">
+      <ba-trip-card [trip]="item" />
+    </a>
     }
   </div>
 
