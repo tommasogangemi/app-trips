@@ -1,3 +1,11 @@
 <div>
-  {{ tripsService.detail.data()?.title }}
+  <div class="py-3 px-3 md:px-6 xl:px-12">
+    @if (tripsService.detail.loading()){
+    <div class="w-full py-20 flex justify-center">
+      <ba-circular-loader size="xl" />
+    </div>
+    } @else if (tripsService.detail.data()) {
+    <ba-trip-detail-content [trip]="tripsService.detail.data()!" />
+    }
+  </div>
 </div>

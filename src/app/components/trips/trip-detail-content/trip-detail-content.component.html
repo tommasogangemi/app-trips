@@ -1,0 +1,30 @@
+<div>
+  <div class="flex justify-between mb-2">
+    <button ba variant="text">
+      <fa-icon [icon]="backArrowIcon" ngProjectAs="ba-btn-icon" class="mr-1" />
+      Back
+    </button>
+    <button ba variant="text">
+      <fa-icon [icon]="shareIcon" ngProjectAs="ba-btn-icon" class="mr-1" />
+      Share
+    </button>
+  </div>
+
+  <div class="flex flex-col-reverse md:flex-row flex-nowrap">
+    <div class="grow-[2]">
+      <div class="text-2xl font-medium">{{ trip().title }}</div>
+      <div>{{ trip().description }}</div>
+    </div>
+    <div
+      class="grow-[1] relative aspect-video md:aspect-[3/4] rounded-lg overflow-hidden mb-3"
+    >
+      <img
+        [ngSrc]="trip().imageUrl"
+        [alt]="trip().title + '_image'"
+        style="object-fit: cover"
+        priority
+        fill
+      />
+    </div>
+  </div>
+</div>

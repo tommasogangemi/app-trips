@@ -1,9 +1,11 @@
 import { Component, effect, inject, input } from '@angular/core';
 import { TripsService } from '../../../services/TripsService/trips.service';
+import { CircularLoaderComponent } from '../../lib/circular-loader/circular-loader.component';
+import { TripDetailContentComponent } from '../trip-detail-content/trip-detail-content.component';
 
 @Component({
   selector: 'ba-trip-detail-page',
-  imports: [],
+  imports: [CircularLoaderComponent, TripDetailContentComponent],
   templateUrl: './trip-detail-page.component.html',
   styleUrl: './trip-detail-page.component.css',
 })
