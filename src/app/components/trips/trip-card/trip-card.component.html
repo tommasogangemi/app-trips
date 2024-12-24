@@ -46,6 +46,10 @@
 
     <div class="mb-1 text-sm text-neutral-400">
       <span>
+        <fa-icon
+          [icon]="verticalTypesConfig[trip().verticalType].icon"
+          class="pr-1"
+        />
         {{ trip().verticalType | titlecase }} -
         {{ trip().co2 | number : "1.0-0" }} kg of CO₂
       </span>
