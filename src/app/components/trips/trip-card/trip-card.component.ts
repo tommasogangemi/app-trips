@@ -11,8 +11,8 @@ import { faStar, faTag } from '@fortawesome/free-solid-svg-icons';
 import { IconHighlighterComponent } from '../../lib/icon-highlighter/icon-highlighter.component';
 import { TooltipComponent } from '../../lib/tooltip/tooltip.component';
 import { RatingsDetailComponent } from '../ratings-detail/ratings-detail.component';
-import { TagsDetailComponent } from '../tags-detail/tags-detail.component';
 import { BA_APP_CONFIG } from '../../../config/ba-app';
+import { TagBadgeComponent } from '../../lib/tag-badge/tag-badge.component';
 
 @Component({
   selector: 'ba-trip-card',
@@ -25,7 +25,7 @@ import { BA_APP_CONFIG } from '../../../config/ba-app';
     IconHighlighterComponent,
     TooltipComponent,
     RatingsDetailComponent,
-    TagsDetailComponent,
+    TagBadgeComponent,
   ],
   templateUrl: './trip-card.component.html',
   styleUrl: './trip-card.component.css',

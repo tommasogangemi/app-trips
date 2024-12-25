@@ -23,7 +23,9 @@
             </ng-template>
           </ba-icon-highlighter>
 
-          <ba-ratings-detail [ratedItem]="trip()" />
+          <div class="p-1">
+            <ba-ratings-detail [ratedItem]="trip()" />
+          </div>
         </ba-tooltip>
 
         @if (trip().tags.length) {
@@ -38,7 +40,15 @@
             </ng-template>
           </ba-icon-highlighter>
 
-          <ba-tags-detail [tags]="trip().tags" />
+          <div class="p-1">
+            <div class="font-semibold mb-2">Tags</div>
+
+            <div class="flex gap-2">
+              @for (tag of trip().tags; track tag) {
+              <ba-tag-badge [tag]="tag" />
+              }
+            </div>
+          </div>
         </ba-tooltip>
         }
       </div>

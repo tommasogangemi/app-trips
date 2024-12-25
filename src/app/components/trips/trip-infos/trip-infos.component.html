@@ -1,0 +1,22 @@
+<div class="flex flex-col md:flex-row flex-wrap gap-3 md:gap-6">
+  <ba-ratings-detail [ratedItem]="trip()" />
+
+  <div>
+    <div class="font-semibold mb-1">Travel mode</div>
+    <div class="text-neutral-600">
+      <fa-icon
+        [icon]="verticalTypesConfig[trip().verticalType].icon"
+        class="mr-2"
+      />
+      <span>{{ trip().verticalType }}</span>
+    </div>
+  </div>
+
+  <div>
+    <div class="font-semibold mb-1">CO₂ emissions</div>
+    <div class="text-neutral-600">
+      <fa-icon [icon]="co2Icon" class="mr-2" />
+      <span>{{ trip().co2 | number : "1.0-0" }} kilograms</span>
+    </div>
+  </div>
+</div>

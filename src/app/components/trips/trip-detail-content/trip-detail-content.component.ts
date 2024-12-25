@@ -5,10 +5,19 @@ import { ButtonComponent } from '../../lib/button/button.component';
 import { faArrowLeft, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
+import { TripInfosComponent } from '../trip-infos/trip-infos.component';
+import { TagBadgeComponent } from '../../lib/tag-badge/tag-badge.component';
 
 @Component({
   selector: 'ba-trip-detail-content',
-  imports: [NgOptimizedImage, ButtonComponent, FontAwesomeModule, DatePipe],
+  imports: [
+    NgOptimizedImage,
+    ButtonComponent,
+    FontAwesomeModule,
+    DatePipe,
+    TripInfosComponent,
+    TagBadgeComponent,
+  ],
   templateUrl: './trip-detail-content.component.html',
   styleUrl: './trip-detail-content.component.css',
 })
