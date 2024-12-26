@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, viewChild } from '@angular/core';
 import {
   BA_BUTTON_COLORS,
   BA_BUTTON_DEFAULT_CLASS,
@@ -17,6 +17,7 @@ export type BaButtonColor = 'primary' | 'black' | 'neutral';
   },
 })
 export class ButtonComponent {
+  iconSlot = viewChild('[ngprojectas~="ba-btn-icon"]');
   /**
    * The classes passed to the button.
    */
