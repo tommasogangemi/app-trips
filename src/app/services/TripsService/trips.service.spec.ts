@@ -4,7 +4,11 @@ import { ROOT_TESTING_PROVIDERS } from '../../utils/testing';
 import { ApiService } from '../lib/ApiService/api.service';
 import { ResourceListService } from '../lib/ResourceListService/resource-list.service';
 import { ResourceDetailService } from '../lib/ResourceDetailService/resource-detail.service';
-import { Trip } from '../../resources/trips';
+import {
+  transformTripResponse,
+  Trip,
+  TripResponse,
+} from '../../resources/trips';
 
 describe('TripsService', () => {
   let service: TripsService;
@@ -28,8 +32,23 @@ describe('TripsService', () => {
     });
 
     it('should load trips using the ResourceListService', async () => {
+      const tripResponse: TripResponse = {
+        id: '1',
+        title: 'Test Trip',
+        description: 'Test description',
+        price: 100,
+        rating: 4,
+        nrOfRatings: 10,
+        verticalType: 'car',
+        tags: ['test'],
+        co2: 10,
+        thumbnailUrl: 'test',
+        imageUrl: 'test',
+        creationDate: '2021-01-01',
+      };
+
       const mockResponse = {
-        items: [{ id: '1' } as Trip],
+        items: [tripResponse],
         total: 1,
         page: 1,
         limit: 10,
@@ -39,7 +58,9 @@ describe('TripsService', () => {
       );
 
       await service.list.load();
-      expect(service.list.data()).toEqual(mockResponse.items);
+      expect(service.list.data()).toEqual(
+        mockResponse.items.map(transformTripResponse)
+      );
       expect(service.list.totalCount()).toBe(mockResponse.total);
       expect(service.list.pagination().page).toBe(mockResponse.page);
     });
@@ -59,13 +80,28 @@ describe('TripsService', () => {
     });
 
     it('should load trip details using the ResourceDetailService', async () => {
-      const mockResponse = { id: '1', title: 'Test Trip' } as Trip;
+      const mockResponse: TripResponse = {
+        id: '1',
+        title: 'Test Trip',
+        description: 'Test description',
+        price: 100,
+        rating: 4,
+        nrOfRatings: 10,
+        verticalType: 'car',
+        tags: ['test'],
+        co2: 10,
+        thumbnailUrl: 'test',
+        imageUrl: 'test',
+        creationDate: '2021-01-01',
+      };
       spyOn(apiService, 'getOne').and.returnValue(
         Promise.resolve(mockResponse)
       );
 
       await service.detail.load('1');
-      expect(service.detail.data()).toEqual(mockResponse);
+      expect(service.detail.data()).toEqual(
+        transformTripResponse(mockResponse)
+      );
     });
 
     it('should handle errors when loading trip details', async () => {
