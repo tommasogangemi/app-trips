@@ -4,12 +4,12 @@ import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
 import { ApiService } from '../ApiService/api.service';
 
 describe('ResourceDetailService', () => {
-  let service: ResourceDetailService<unknown>;
+  let service: ResourceDetailService<{ id: string }>;
   let apiService: ApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [...ROOT_TESTING_PROVIDERS],
+      providers: ROOT_TESTING_PROVIDERS,
     });
     apiService = TestBed.inject(ApiService);
     service = new ResourceDetailService(apiService, 'test');
@@ -51,6 +51,16 @@ describe('ResourceDetailService', () => {
 
       await service.load('123');
       expect(service.loading()).toBeFalse();
+    });
+
+    it('should not refetch if the id is equal to the id of the trip already present', async () => {
+      const mockResponse = { id: '123', name: 'Test Item' };
+      service.data.set(mockResponse);
+
+      const fetchSpy = spyOn(apiService, 'getOne');
+
+      await service.load('123');
+      expect(fetchSpy).not.toHaveBeenCalled();
     });
   });
 });
