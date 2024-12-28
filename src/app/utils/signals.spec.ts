@@ -1,6 +1,6 @@
 import { storedSignal } from './signals';
 
-xdescribe('storedSignal', () => {
+describe('storedSignal', () => {
   const storageKey = 'testKey';
 
   beforeEach(() => {

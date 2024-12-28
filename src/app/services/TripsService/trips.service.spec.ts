@@ -3,8 +3,8 @@ import { TripsService } from './trips.service';
 import { ROOT_TESTING_PROVIDERS } from '../../utils/testing';
 import { ApiService } from '../lib/ApiService/api.service';
 import { ResourceListService } from '../lib/ResourceListService/resource-list.service';
-import { Trip } from '../../../types/trips';
 import { ResourceDetailService } from '../lib/ResourceDetailService/resource-detail.service';
+import { Trip } from '../../resources/trips';
 
 describe('TripsService', () => {
   let service: TripsService;
