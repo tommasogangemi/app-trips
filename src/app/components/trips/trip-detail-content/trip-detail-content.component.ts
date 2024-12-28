@@ -1,5 +1,4 @@
 import { Component, inject, input } from '@angular/core';
-import { Trip } from '../../../../types/trips';
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { ButtonComponent } from '../../lib/button/button.component';
 import { faArrowLeft, faShareNodes } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
 import { TripInfosComponent } from '../trip-infos/trip-infos.component';
 import { TagBadgeComponent } from '../../lib/tag-badge/tag-badge.component';
+import { Trip } from '../../../resources/trips';
 
 @Component({
   selector: 'ba-trip-detail-content',

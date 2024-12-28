@@ -5,7 +5,8 @@ import { ApiService } from '../ApiService/api.service';
 import { GetListResponse } from '../../../../types/api';
 
 describe('ResourceListService', () => {
-  let service: ResourceListService<unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let service: ResourceListService<any, any>;
   let apiService: ApiService;
 
   beforeEach(() => {
@@ -13,7 +14,7 @@ describe('ResourceListService', () => {
       providers: [...ROOT_TESTING_PROVIDERS],
     });
     apiService = TestBed.inject(ApiService);
-    service = new ResourceListService(apiService, 'test');
+    service = new ResourceListService(apiService, 'test', (r) => r);
   });
 
   it('should be created', () => {
@@ -123,6 +124,29 @@ describe('ResourceListService', () => {
       service.data.set(Array.from({ length: 10 }, (_, i) => ({ id: i + 1 })));
 
       expect(service.hasNextPage()).toBeFalse();
+    });
+  });
+
+  describe('transform function', () => {
+    it('should transform the fetched data using the provided transform function', async () => {
+      const transformFn = (item: { id: number }) => ({
+        ...item,
+        transformed: true,
+      });
+      service = new ResourceListService(apiService, 'test', transformFn);
+
+      const mockResponse: GetListResponse<{ id: number }> = {
+        items: [{ id: 1 }],
+        total: 1,
+        page: 1,
+        limit: 10,
+      };
+      spyOn(apiService, 'getList').and.returnValue(
+        Promise.resolve(mockResponse)
+      );
+
+      await service.load();
+      expect(service.data()).toEqual([{ id: 1, transformed: true }]);
     });
   });
 });

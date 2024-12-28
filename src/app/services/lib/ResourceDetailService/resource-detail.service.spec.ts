@@ -4,7 +4,8 @@ import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
 import { ApiService } from '../ApiService/api.service';
 
 describe('ResourceDetailService', () => {
-  let service: ResourceDetailService<{ id: string }>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let service: ResourceDetailService<any, any>;
   let apiService: ApiService;
 
   beforeEach(() => {
@@ -12,7 +13,7 @@ describe('ResourceDetailService', () => {
       providers: ROOT_TESTING_PROVIDERS,
     });
     apiService = TestBed.inject(ApiService);
-    service = new ResourceDetailService(apiService, 'test');
+    service = new ResourceDetailService(apiService, 'test', (r) => r);
   });
 
   it('should be created', () => {
@@ -61,6 +62,24 @@ describe('ResourceDetailService', () => {
 
       await service.load('123');
       expect(fetchSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('transform function', () => {
+    it('should transform the fetched data using the provided transform function', async () => {
+      const transformFn = (item: { id: string }) => ({
+        ...item,
+        transformed: true,
+      });
+      service = new ResourceDetailService(apiService, 'test', transformFn);
+
+      const mockResponse = { id: '123' };
+      spyOn(apiService, 'getOne').and.returnValue(
+        Promise.resolve(mockResponse)
+      );
+
+      await service.load('123');
+      expect(service.data()).toEqual({ id: '123', transformed: true });
     });
   });
 });

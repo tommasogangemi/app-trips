@@ -1,6 +1,7 @@
 import { computed, signal } from '@angular/core';
 import { ApiService } from '../ApiService/api.service';
 import { ListPaginationPayload, ListQueryPayload } from '../../../../types/api';
+import { TransformFn } from '../../../../types/common/functions';
 
 interface ResourceListLoadConfig {
   /**
@@ -12,8 +13,8 @@ interface ResourceListLoadConfig {
 /**
  * Handles fetching and managing a the state relative to a list of resources.
  */
-export class ResourceListService<T> {
-  data = signal<T[]>([]);
+export class ResourceListService<TResponse, TModel> {
+  data = signal<TModel[]>([]);
   loading = signal<boolean>(false);
   error = signal<Error | undefined>(undefined);
   totalCount = signal<number>(0);
@@ -33,16 +34,18 @@ export class ResourceListService<T> {
     this.error.set(undefined);
 
     try {
-      const response = await this.apiService.getList<T>(
+      const response = await this.apiService.getList<TResponse>(
         this.endpoint,
         queryPayload,
         fetchParams
       );
 
+      const transformedItems = response.items.map(this.fromResponse);
+
       if (config.keepData) {
-        this.data.update((prevData) => [...prevData, ...response.items]);
+        this.data.update((prevData) => [...prevData, ...transformedItems]);
       } else {
-        this.data.set(response.items);
+        this.data.set(transformedItems);
       }
 
       this.totalCount.set(response.total);
@@ -74,5 +77,9 @@ export class ResourceListService<T> {
     );
   }
 
-  constructor(private apiService: ApiService, private endpoint: string) {}
+  constructor(
+    private apiService: ApiService,
+    private endpoint: string,
+    private fromResponse: TransformFn<TResponse, TModel>
+  ) {}
 }
