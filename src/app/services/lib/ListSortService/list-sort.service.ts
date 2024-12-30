@@ -7,15 +7,15 @@ import { storedSignal } from '../../../utils/signals';
  */
 export class ListSortService {
   private storageKeySuffix = 'list-sort';
-  private storageKey: string;
+  private identifier: string;
   sort: WritableSignal<ListSortPayload>;
 
   setSort(s: ListSortPayload) {
     this.sort.set({ ...s });
   }
 
-  constructor(identifier: string) {
-    this.storageKey = `${identifier}__${this.storageKeySuffix}`;
-    this.sort = storedSignal<ListSortPayload>(this.storageKey);
+  constructor(identifier: string, defaultSort?: ListSortPayload) {
+    this.identifier = `${identifier}__${this.storageKeySuffix}`;
+    this.sort = storedSignal<ListSortPayload>(this.identifier, defaultSort);
   }
 }
