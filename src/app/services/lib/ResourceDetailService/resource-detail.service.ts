@@ -1,13 +1,14 @@
 import { signal } from '@angular/core';
 import { ApiService } from '../ApiService/api.service';
 import { TransformFn } from '../../../../types/common/functions';
+import { WithId } from '../../../../types/common/object';
 
 /**
  * Handles fetching and managing a the state related to the detail of a resource.
  */
 export class ResourceDetailService<
-  TResponse extends { id: string },
-  TModel extends { id: string }
+  TResponse extends WithId,
+  TModel extends WithId
 > {
   data = signal<TModel | undefined>(undefined);
   loading = signal<boolean>(false);

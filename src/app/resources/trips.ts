@@ -1,7 +1,6 @@
-import { TransformFn } from '../../types/common/functions';
+import { WithId } from '../../types/common/object';
 
-export interface TripResponse {
-  id: string;
+export interface TripResponse extends WithId {
   title: string;
   description: string;
   price: number;
@@ -15,7 +14,7 @@ export interface TripResponse {
   creationDate: string;
 }
 
-export class Trip {
+export class Trip implements WithId {
   id: string;
   title: string;
   description: string;
@@ -44,6 +43,3 @@ export class Trip {
     this.creationDate = new Date(apiResponse.creationDate);
   }
 }
-
-export const transformTripResponse: TransformFn<TripResponse, Trip> = (res) =>
-  new Trip(res);

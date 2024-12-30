@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { TripsService } from './trips.service';
+import { transformTripResponse, TripsService } from './trips.service';
 import { ROOT_TESTING_PROVIDERS } from '../../utils/testing';
 import { ApiService } from '../lib/ApiService/api.service';
 import { ResourceListService } from '../lib/ResourceListService/resource-list.service';
 import { ResourceDetailService } from '../lib/ResourceDetailService/resource-detail.service';
-import { transformTripResponse, TripResponse } from '../../resources/trips';
+import { TripResponse } from '../../resources/trips';
 
 describe('TripsService', () => {
   let service: TripsService;

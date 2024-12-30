@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ApiService } from './api.service';
 import { ListQueryPayload, GetListResponse } from '../../../../types/api';
 import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
+import { WithId } from '../../../../types/common/object';
 
 describe('ApiService', () => {
   let service: ApiService;
@@ -60,7 +61,7 @@ describe('ApiService', () => {
         pagination: { page: 1, limit: 10 },
         filter: { status: 'active' },
       };
-      const mockResponse: GetListResponse<{ id: string }> = {
+      const mockResponse: GetListResponse<WithId> = {
         items: [],
         total: 0,
         page: 1,

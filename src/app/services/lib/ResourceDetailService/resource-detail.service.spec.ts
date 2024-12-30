@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ResourceDetailService } from './resource-detail.service';
 import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
 import { ApiService } from '../ApiService/api.service';
+import { WithId } from '../../../../types/common/object';
 
 describe('ResourceDetailService', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,7 +68,7 @@ describe('ResourceDetailService', () => {
 
   describe('transform function', () => {
     it('should transform the fetched data using the provided transform function', async () => {
-      const transformFn = (item: { id: string }) => ({
+      const transformFn = (item: WithId) => ({
         ...item,
         transformed: true,
       });
