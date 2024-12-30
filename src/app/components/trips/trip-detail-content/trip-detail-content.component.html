@@ -1,10 +1,12 @@
 <div>
   <div class="flex justify-between mb-1">
     <button ba variant="text" class="-ml-2 underline" (click)="location.back()">
-      <fa-icon [icon]="backArrowIcon" class="mr-2" />Back
+      <fa-icon ngProjectAs="ba-btn-icon" [icon]="backArrowIcon" />
+      Back
     </button>
-    <button ba variant="text" class="underline" (click)="onShareClick()">
-      <fa-icon [icon]="shareIcon" class="mr-2" />Share
+    <button ba variant="text" class="-mr-2 underline" (click)="onShareClick()">
+      <fa-icon ngProjectAs="ba-btn-icon" [icon]="shareIcon" />
+      Share
     </button>
   </div>
 
