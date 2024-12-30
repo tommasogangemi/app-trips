@@ -3,13 +3,13 @@
   <div class="flex gap-2 items-center">
     <span>{{ ratedItem().rating }}</span>
 
-    <div class="flex gap-1 relative">
+    <div class="flex gap-0.5 relative">
       @for (starNumber of maxStars(); track starNumber) {
       <fa-icon [icon]="starIcon" size="sm" class="text-neutral-300" />
       }
 
       <div
-        class="absolute left-0 top-0 bottom-0 righ-0 overflow-hidden flex gap-1"
+        class="absolute left-0 top-0 bottom-0 righ-0 overflow-hidden flex gap-0.5"
         [ngStyle]="filledStarsStyle()"
       >
         @for (starNumber of maxStars(); track starNumber) {

@@ -25,6 +25,10 @@ export class ButtonComponent {
   variant = input<BaButtonVariant>('filled');
   color = input<BaButtonColor>('black');
   icon = input<IconDefinition>();
+  /**
+   * Whether the button is in a loading state.
+   */
+  loading = input<boolean>(false);
 
   /**
    * Takes the string from a class attribute and removes duplicates.
