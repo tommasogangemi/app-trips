@@ -4,6 +4,7 @@ import {
   BA_BUTTON_DEFAULT_CLASS,
 } from './button.style-config';
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
+import { CircularLoaderComponent } from '../circular-loader/circular-loader.component';
 
 export type BaButtonVariant = 'filled' | 'outlined' | 'text';
 export type BaButtonColor = 'primary' | 'black' | 'neutral';
@@ -15,6 +16,7 @@ export type BaButtonColor = 'primary' | 'black' | 'neutral';
   host: {
     '[class]': 'baButtonClass()',
   },
+  imports: [CircularLoaderComponent],
 })
 export class ButtonComponent {
   iconSlot = viewChild('[ngprojectas~="ba-btn-icon"]');

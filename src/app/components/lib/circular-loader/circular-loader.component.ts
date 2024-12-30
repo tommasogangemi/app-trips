@@ -17,10 +17,10 @@ const SIZE_CLASSES_MAP: Record<CircularLoaderSize, string> = {
   styleUrl: './circular-loader.component.css',
 })
 export class CircularLoaderComponent {
-  colorClass = input<string>('text-primary-500');
+  colorClass = input<string>();
   size = input<CircularLoaderSize>('md');
 
   computedClass = computed(
-    () => `${this.colorClass()} ${SIZE_CLASSES_MAP[this.size()]}`
+    () => `${this.colorClass() ?? ''} ${SIZE_CLASSES_MAP[this.size()]}`
   );
 }

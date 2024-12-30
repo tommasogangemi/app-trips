@@ -1,1 +1,8 @@
-<ng-content></ng-content>
+<div class="flex gap-2 items-center">
+  @if(loading()) {
+  <ba-circular-loader size="sm" style="max-height: 20px" />
+  } @else {
+  <ng-content select="ba-btn-icon"></ng-content>
+  }
+  <ng-content></ng-content>
+</div>
