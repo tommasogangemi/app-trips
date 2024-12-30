@@ -1,7 +1,7 @@
-import { BaButtonColor, BaButtonVariant } from './button.component';
+import { BaButtonColor, BaButtonVariant, ButtonSize } from './button.component';
 
 export const BA_BUTTON_DEFAULT_CLASS =
-  'rounded-full px-3 py-1 font-medium transition-colors';
+  'rounded-full font-medium transition-colors';
 
 export const BA_BUTTON_COLORS: Record<
   BaButtonColor,
@@ -22,4 +22,9 @@ export const BA_BUTTON_COLORS: Record<
     outlined: 'border border-neutral-500 text-neutral-600 hover:bg-neutral-100',
     text: 'text-neutral-500 hover:text-neutral-400',
   },
+};
+
+export const BA_BUTTON_SIZES: Record<ButtonSize, string> = {
+  md: 'px-3 py-1',
+  lg: 'px-4 py-2',
 };

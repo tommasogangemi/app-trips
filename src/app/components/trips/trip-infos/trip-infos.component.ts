@@ -3,12 +3,17 @@ import { RatingsDetailComponent } from '../ratings-detail/ratings-detail.compone
 import { BA_APP_CONFIG } from '../../../config/ba-app';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLeaf } from '@fortawesome/free-solid-svg-icons';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { Trip } from '../../../resources/trips';
 
 @Component({
   selector: 'ba-trip-infos',
-  imports: [RatingsDetailComponent, FontAwesomeModule, DecimalPipe],
+  imports: [
+    RatingsDetailComponent,
+    FontAwesomeModule,
+    DecimalPipe,
+    TitleCasePipe,
+  ],
   templateUrl: './trip-infos.component.html',
   styleUrl: './trip-infos.component.css',
 })

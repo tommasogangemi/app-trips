@@ -2,12 +2,14 @@ import { Component, computed, input, viewChild } from '@angular/core';
 import {
   BA_BUTTON_COLORS,
   BA_BUTTON_DEFAULT_CLASS,
+  BA_BUTTON_SIZES,
 } from './button.style-config';
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
 import { CircularLoaderComponent } from '../circular-loader/circular-loader.component';
 
 export type BaButtonVariant = 'filled' | 'outlined' | 'text';
 export type BaButtonColor = 'primary' | 'black' | 'neutral';
+export type ButtonSize = 'md' | 'lg';
 
 @Component({
   selector: 'button[ba]',
@@ -31,6 +33,10 @@ export class ButtonComponent {
    * Whether the button is in a loading state.
    */
   loading = input<boolean>(false);
+  /**
+   * The size of the button.
+   */
+  size = input<ButtonSize>('md');
 
   /**
    * Takes the string from a class attribute and removes duplicates.
@@ -49,7 +55,9 @@ export class ButtonComponent {
 
     finalClass = finalClass.concat(
       ' ',
-      BA_BUTTON_COLORS[this.color()][this.variant()]
+      BA_BUTTON_COLORS[this.color()][this.variant()],
+      ' ',
+      BA_BUTTON_SIZES[this.size()]
     );
 
     if (inputClass) {
