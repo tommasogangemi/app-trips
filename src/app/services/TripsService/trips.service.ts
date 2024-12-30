@@ -4,15 +4,15 @@ import { ApiService } from '../lib/ApiService/api.service';
 import { ResourceDetailService } from '../lib/ResourceDetailService/resource-detail.service';
 import { Trip, TripResponse } from '../../resources/trips';
 import { TransformFn } from '../../../types/common/functions';
-import { StoreReadService } from '../../../types/services';
+import { ReadStoreService } from '../lib/ReadStoreService/ReadStoreService';
 
 export const transformTripResponse: TransformFn<TripResponse, Trip> = (res) =>
   new Trip(res);
 
 @Injectable({ providedIn: 'root' })
-export class TripsService implements StoreReadService<TripResponse, Trip> {
-  endpoint = 'trips';
-  fromResponse = transformTripResponse;
+export class TripsService extends ReadStoreService<TripResponse, Trip> {
+  protected endpoint = 'trips';
+  protected fromResponse = transformTripResponse;
 
   list = new ResourceListService(
     inject(ApiService),
