@@ -25,7 +25,7 @@ export class TripsListComponent {
   tripsService = inject(TripsService);
   listViewService = new ListViewService('trips-list');
 
-  private INITIAL_PAGINATION: ListPaginationPayload = { page: 1, limit: 20 };
+  private INITIAL_PAGINATION: ListPaginationPayload = { page: 1, limit: 100 };
 
   private refetchListEffect = effect(() => {
     this.tripsService.list.load({
@@ -34,8 +34,18 @@ export class TripsListComponent {
     });
   });
 
+  /**
+   * Used to compare with the value of the selected sort
+   */
   stringifiedActiveSort = computed(() =>
     JSON.stringify(this.listViewService.sortService.sort())
+  );
+
+  maxRatingsCount = computed(() =>
+    Math.max(...this.tripsService.list.data().map((trip) => trip.nrOfRatings))
+  );
+  maxCo2Emissions = computed(() =>
+    Math.max(...this.tripsService.list.data().map((trip) => trip.co2))
   );
 
   onSortChange(event: Event) {
