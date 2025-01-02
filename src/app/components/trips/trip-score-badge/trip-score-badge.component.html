@@ -1,1 +1,13 @@
-<p>trip-score-badge works!</p>
+<ba-tooltip>
+  <div
+    ngProjectAs="activator"
+    class="bg-white rounded-full px-2 py-1 text-sm font-semibold text-neutral-600 shadow-sm border border-neutral-200"
+  >
+    {{ score() | titlecase }}
+  </div>
+
+  <p>
+    Score based on the trip's<br />characteristics:<br />
+    Rating, number of ratings<br />and co2 emissions.
+  </p>
+</ba-tooltip>

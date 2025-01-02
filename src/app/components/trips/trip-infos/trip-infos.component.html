@@ -19,4 +19,9 @@
       <span>{{ trip().co2 | number : "1.0-0" }} kilograms</span>
     </div>
   </div>
+
+  <div>
+    <div class="font-semibold mb-1">Score</div>
+    <ba-trip-score-badge [score]="trip().getScore()" />
+  </div>
 </div>

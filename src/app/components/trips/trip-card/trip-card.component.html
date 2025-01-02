@@ -1,4 +1,9 @@
-<div class="flex flex-row md:flex-col gap-3 md:gap-1">
+<div class="flex flex-row md:flex-col gap-3 md:gap-1 relative card">
+  <ba-trip-score-badge
+    [score]="trip().getScore()"
+    class="hidden md:block absolute top-2 right-2"
+  />
+
   <div class="relative aspect-square rounded-lg overflow-hidden -z-10 min-h-24">
     <img
       [ngSrc]="trip().thumbnailUrl"

@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { Trip } from '../../../resources/trips/trips';
+import { TripScoreBadgeComponent } from '../trip-score-badge/trip-score-badge.component';
 
 @Component({
   selector: 'ba-trip-infos',
@@ -13,6 +14,7 @@ import { Trip } from '../../../resources/trips/trips';
     FontAwesomeModule,
     DecimalPipe,
     TitleCasePipe,
+    TripScoreBadgeComponent,
   ],
   templateUrl: './trip-infos.component.html',
   styleUrl: './trip-infos.component.css',

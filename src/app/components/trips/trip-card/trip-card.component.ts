@@ -13,6 +13,7 @@ import { RatingsDetailComponent } from '../ratings-detail/ratings-detail.compone
 import { BA_APP_CONFIG } from '../../../config/ba-app';
 import { TagBadgeComponent } from '../../lib/tag-badge/tag-badge.component';
 import { Trip } from '../../../resources/trips/trips';
+import { TripScoreBadgeComponent } from '../trip-score-badge/trip-score-badge.component';
 
 @Component({
   selector: 'ba-trip-card',
@@ -26,6 +27,7 @@ import { Trip } from '../../../resources/trips/trips';
     TooltipComponent,
     RatingsDetailComponent,
     TagBadgeComponent,
+    TripScoreBadgeComponent,
   ],
   templateUrl: './trip-card.component.html',
   styleUrl: './trip-card.component.css',
