@@ -13,7 +13,12 @@
   <div class="flex flex-col-reverse md:flex-row flex-nowrap gap-3">
     <div class="basis-2/3">
       <section>
-        <h1 class="text-2xl font-medium">{{ trip().title }}</h1>
+        <div class="flex justify-between items-center">
+          <h1 class="text-2xl font-medium">{{ trip().title }}</h1>
+          <div class="text-xl font-medium">
+            {{ trip().price | currency : undefined : "symbol" : "1.0-0" }}
+          </div>
+        </div>
         <div class="text-xs text-neutral-600">
           Created: {{ trip().creationDate | date }}
         </div>
@@ -27,8 +32,14 @@
 
       <hr class="my-3" />
 
+      <div class="flex flex-wrap gap-2 my-4">
+        @for (tag of trip().tags; track tag) {
+        <ba-tag-badge [tag]="tag" />
+        }
+      </div>
+
       <!-- Lorem ipsum added here to give a more realistic representation of the description of a trip, which is always very short in this testing API -->
-      <section class="py-2">
+      <section>
         <div>
           {{ trip().description }} Lorem ipsum dolor sit amet consectetur,
           adipisicing elit. Ea expedita fugit temporibus iste ipsa provident
@@ -57,12 +68,6 @@
           priority
           fill
         />
-      </div>
-
-      <div class="flex flex-wrap gap-2 my-2">
-        @for (tag of trip().tags; track tag) {
-        <ba-tag-badge [tag]="tag" />
-        }
       </div>
     </aside>
   </div>
