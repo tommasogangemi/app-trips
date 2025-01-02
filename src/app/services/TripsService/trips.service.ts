@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ResourceListService } from '../lib/ResourceListService/resource-list.service';
 import { ApiService } from '../lib/ApiService/api.service';
 import { ResourceDetailService } from '../lib/ResourceDetailService/resource-detail.service';
-import { Trip, TripResponse } from '../../resources/trips';
+import { Trip, TripResponse } from '../../resources/trips/trips';
 import { TransformFn } from '../../../types/common/functions';
 import { ReadStoreService } from '../lib/ReadStoreService/ReadStoreService';
 import {

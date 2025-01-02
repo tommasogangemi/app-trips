@@ -6,7 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
 import { TripInfosComponent } from '../trip-infos/trip-infos.component';
 import { TagBadgeComponent } from '../../lib/tag-badge/tag-badge.component';
-import { Trip } from '../../../resources/trips';
+import { Trip } from '../../../resources/trips/trips';
 
 @Component({
   selector: 'ba-trip-detail-content',

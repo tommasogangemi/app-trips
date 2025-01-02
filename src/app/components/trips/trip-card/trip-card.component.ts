@@ -12,7 +12,7 @@ import { TooltipComponent } from '../../lib/tooltip/tooltip.component';
 import { RatingsDetailComponent } from '../ratings-detail/ratings-detail.component';
 import { BA_APP_CONFIG } from '../../../config/ba-app';
 import { TagBadgeComponent } from '../../lib/tag-badge/tag-badge.component';
-import { Trip } from '../../../resources/trips';
+import { Trip } from '../../../resources/trips/trips';
 
 @Component({
   selector: 'ba-trip-card',

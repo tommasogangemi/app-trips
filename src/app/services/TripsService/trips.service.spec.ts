@@ -4,7 +4,7 @@ import { ROOT_TESTING_PROVIDERS } from '../../utils/testing';
 import { ApiService } from '../lib/ApiService/api.service';
 import { ResourceListService } from '../lib/ResourceListService/resource-list.service';
 import { ResourceDetailService } from '../lib/ResourceDetailService/resource-detail.service';
-import { TripResponse } from '../../resources/trips';
+import { TripResponse } from '../../resources/trips/trips';
 
 describe('TripsService', () => {
   let service: TripsService;

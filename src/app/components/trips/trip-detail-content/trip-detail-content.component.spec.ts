@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TripDetailContentComponent } from './trip-detail-content.component';
 import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
-import { Trip } from '../../../resources/trips';
+import { Trip } from '../../../resources/trips/trips';
 
 describe('TripDetailContentComponent', () => {
   let component: TripDetailContentComponent;

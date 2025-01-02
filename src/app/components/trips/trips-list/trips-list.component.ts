@@ -41,13 +41,6 @@ export class TripsListComponent {
     JSON.stringify(this.listViewService.sortService.sort())
   );
 
-  maxRatingsCount = computed(() =>
-    Math.max(...this.tripsService.list.data().map((trip) => trip.nrOfRatings))
-  );
-  maxCo2Emissions = computed(() =>
-    Math.max(...this.tripsService.list.data().map((trip) => trip.co2))
-  );
-
   onSortChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
 

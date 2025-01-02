@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TripInfosComponent } from './trip-infos.component';
 import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
-import { Trip } from '../../../resources/trips';
+import { Trip } from '../../../resources/trips/trips';
 
 describe('TripInfosComponent', () => {
   let component: TripInfosComponent;

@@ -4,7 +4,7 @@ import { BA_APP_CONFIG } from '../../../config/ba-app';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
-import { Trip } from '../../../resources/trips';
+import { Trip } from '../../../resources/trips/trips';
 
 @Component({
   selector: 'ba-trip-infos',

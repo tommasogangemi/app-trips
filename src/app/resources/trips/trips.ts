@@ -1,4 +1,4 @@
-import { WithId } from '../../types/common/object';
+import { WithId } from '../../../types/common/object';
 
 export type TripScore = 'average' | 'good' | 'awesome';
 
@@ -49,7 +49,7 @@ export class Trip implements WithId {
      * If this were to change we can easily update the variables at their source.
      */
     const normalizedRating =
-      (this.rating - 1) / this.MAX_RATING - this.MIN_RATING;
+      (this.rating - 1) / (this.MAX_RATING - this.MIN_RATING);
     /**
      * Normalized ratings count. Uses logarithmic scale to lower the impact of trips with very high score and minimize outliar values.
      * Divides by log 1000 because it's basically the maximum value that we can have at the moment.
