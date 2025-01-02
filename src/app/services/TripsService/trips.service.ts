@@ -5,7 +5,11 @@ import { ResourceDetailService } from '../lib/ResourceDetailService/resource-det
 import { Trip, TripResponse } from '../../resources/trips';
 import { TransformFn } from '../../../types/common/functions';
 import { ReadStoreService } from '../lib/ReadStoreService/ReadStoreService';
-import { WithId } from '../../../types/common/object';
+import {
+  SelectableOption,
+  SelectableSortOption,
+  WithId,
+} from '../../../types/common/object';
 import { storedSignal } from '../../utils/signals';
 import { isSameDay } from 'date-fns/isSameDay';
 
@@ -23,17 +27,63 @@ export const transformTripResponse: TransformFn<TripResponse, Trip> = (res) =>
 
 @Injectable({ providedIn: 'root' })
 export class TripsService extends ReadStoreService<TripResponse, Trip> {
+  /**
+   * The definition of the sort options available for the trips list.
+   */
+  private SORT_OPTIONS: SelectableSortOption[] = [
+    {
+      label: 'Title - Ascending',
+      value: { field: 'title', order: 'ASC' },
+    },
+    {
+      label: 'Title - Descending',
+      value: { field: 'title', order: 'DESC' },
+    },
+    {
+      label: 'Price - Ascending',
+      value: { field: 'price', order: 'ASC' },
+    },
+    {
+      label: 'Price - Descending',
+      value: { field: 'price', order: 'DESC' },
+    },
+    {
+      label: 'Rating - Ascending',
+      value: { field: 'rating', order: 'ASC' },
+    },
+    {
+      label: 'Rating - Descending',
+      value: { field: 'rating', order: 'DESC' },
+    },
+    {
+      label: 'Creation Date - Ascending',
+      value: { field: 'creationDate', order: 'ASC' },
+    },
+    {
+      label: 'Creation Date - Descending',
+      value: { field: 'creationDate', order: 'DESC' },
+    },
+  ];
+
   protected endpoint = 'trips';
   protected todEndpoint = 'random/trip-of-the-day';
   protected fromResponse = transformTripResponse;
+  /**
+   * The reference to the trip of the day,
+   * used to cache its id for the day and not generate a new one unless the day is different.
+   */
   private todReference = storedSignal<ToDReference>(ToD_STORAGE_KEY);
+  /**
+   * Options mapped as selectable options with stringified values.
+   */
+  readonly sortOptions: SelectableOption[];
 
-  list = new ResourceListService(
+  readonly list = new ResourceListService(
     inject(ApiService),
     this.endpoint,
     this.fromResponse
   );
-  detail = new ResourceDetailService(
+  readonly detail = new ResourceDetailService(
     inject(ApiService),
     this.endpoint,
     this.fromResponse
@@ -61,5 +111,14 @@ export class TripsService extends ReadStoreService<TripResponse, Trip> {
         date: new Date().toISOString(),
       });
     }
+  }
+
+  constructor() {
+    super();
+
+    this.sortOptions = this.SORT_OPTIONS.map((o) => ({
+      value: JSON.stringify(o.value),
+      label: o.label,
+    }));
   }
 }

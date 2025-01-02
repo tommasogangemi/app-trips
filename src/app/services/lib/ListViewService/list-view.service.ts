@@ -12,7 +12,7 @@ import { ListSortService } from '../ListSortService/list-sort.service';
  */
 export class ListViewService {
   private identifier: string;
-  sortService: ListSortService;
+  readonly sortService: ListSortService;
 
   listQueryPayload = computed<ListQueryPayload>(() => ({
     sort: this.sortService.sort(),

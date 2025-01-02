@@ -8,10 +8,14 @@ import { storedSignal } from '../../../utils/signals';
 export class ListSortService {
   private storageKeySuffix = 'list-sort';
   private identifier: string;
-  sort: WritableSignal<ListSortPayload>;
+  sort: WritableSignal<ListSortPayload | undefined>;
 
   setSort(s: ListSortPayload) {
     this.sort.set({ ...s });
+  }
+
+  resetSort() {
+    this.sort.set(undefined);
   }
 
   constructor(identifier: string, defaultSort?: ListSortPayload) {
