@@ -8,17 +8,19 @@ import { TripsListComponent } from './trips-list.component';
 import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
 import { TripsService } from '../../../services/TripsService/trips.service';
 import { buildTripResponseMock } from '../../../utils/testing/trips';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { TripCardComponent } from '../trip-card/trip-card.component';
 import { CircularLoaderComponent } from '../../lib/circular-loader/circular-loader.component';
 import { ApiService } from '../../../services/lib/ApiService/api.service';
+import { TripDetailPageComponent } from '../trip-detail-page/trip-detail-page.component';
 
 describe('TripsListComponent', () => {
   let component: TripsListComponent;
   let fixture: ComponentFixture<TripsListComponent>;
   let tripsService: TripsService;
   let apiService: ApiService;
+  let router: Router;
 
   const setupComponent = () => {
     fixture = TestBed.createComponent(TripsListComponent);
@@ -30,12 +32,21 @@ describe('TripsListComponent', () => {
     localStorage.clear();
 
     await TestBed.configureTestingModule({
-      imports: [TripsListComponent, RouterModule.forRoot([])],
+      imports: [
+        TripsListComponent,
+        RouterModule.forRoot([
+          {
+            path: 'trip/:id',
+            component: TripDetailPageComponent,
+          },
+        ]),
+      ],
       providers: ROOT_TESTING_PROVIDERS,
     }).compileComponents();
 
     tripsService = TestBed.inject(TripsService);
     apiService = TestBed.inject(ApiService);
+    router = TestBed.inject(Router);
   });
 
   it('should create', () => {
@@ -329,6 +340,35 @@ describe('TripsListComponent', () => {
           undefined,
         ],
       ]);
+    }));
+
+    it('should navigate to the trip detail page for the given trip when clicking on a trip card', fakeAsync(() => {
+      spyOn(apiService, 'getList').and.returnValue(
+        Promise.resolve({
+          items: [
+            buildTripResponseMock({ id: '1', title: 'Trip 1' }),
+            buildTripResponseMock({ id: '2', title: 'Trip 2' }),
+            buildTripResponseMock({ id: '3', title: 'Trip 3' }),
+          ],
+          limit: 20,
+          page: 1,
+          total: 5,
+        })
+      );
+
+      setupComponent();
+
+      tick();
+      fixture.detectChanges();
+
+      const tripCardWrapper = fixture.debugElement.query(
+        By.css('[data-testid="trip-card__wrapper-link"]')
+      );
+      tripCardWrapper.nativeElement.click();
+
+      tick();
+
+      expect(router.url).toBe('/trip/1');
     }));
   });
 });
