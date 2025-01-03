@@ -107,7 +107,6 @@ describe('TripsListComponent', () => {
       setupComponent();
 
       tick();
-
       fixture.detectChanges();
 
       const cards = fixture.debugElement.queryAll(
@@ -116,7 +115,7 @@ describe('TripsListComponent', () => {
       expect(cards.length).toBe(3);
     }));
 
-    fit('should render the button to load more trips if there are more trips to load', fakeAsync(() => {
+    it('should render the button to load more trips if there are more trips to load', fakeAsync(() => {
       spyOn(apiService, 'getList').and.returnValue(
         Promise.resolve({
           items: [
@@ -133,7 +132,6 @@ describe('TripsListComponent', () => {
       setupComponent();
 
       tick();
-
       fixture.detectChanges();
 
       const loadMoreButton = fixture.debugElement.query(
@@ -141,6 +139,184 @@ describe('TripsListComponent', () => {
       );
 
       expect(loadMoreButton).toBeTruthy();
+    }));
+  });
+
+  describe('user interactions', () => {
+    it('should fetch the next page of trips when the user clicks on the load more button and display the number of cards according to the results', fakeAsync(() => {
+      const getListSpy = spyOn(apiService, 'getList').and.returnValue(
+        Promise.resolve({
+          items: [
+            buildTripResponseMock({ id: '1', title: 'Trip 1' }),
+            buildTripResponseMock({ id: '2', title: 'Trip 2' }),
+            buildTripResponseMock({ id: '3', title: 'Trip 3' }),
+          ],
+          limit: 20,
+          page: 1,
+          total: 5,
+        })
+      );
+      const loadNextPageSpy = spyOn(
+        tripsService.list,
+        'loadNextPage'
+      ).and.callThrough();
+
+      setupComponent();
+
+      tick();
+      fixture.detectChanges();
+
+      expect(getListSpy).toHaveBeenCalledWith(
+        'trips',
+        {
+          sort: undefined,
+          pagination: { page: 1, limit: 20 },
+        },
+        undefined
+      );
+      expect(
+        fixture.debugElement.queryAll(By.directive(TripCardComponent)).length
+      ).toBe(3);
+
+      getListSpy.and.returnValue(
+        Promise.resolve({
+          items: [
+            buildTripResponseMock({ id: '4', title: 'Trip 4' }),
+            buildTripResponseMock({ id: '5', title: 'Trip 5' }),
+          ],
+          limit: 20,
+          page: 2,
+          total: 5,
+        })
+      );
+
+      const loadMoreButton = fixture.debugElement.query(
+        By.css('[data-testid="load-more-trips__button"]')
+      );
+
+      loadMoreButton.nativeElement.click();
+
+      tick();
+      fixture.detectChanges();
+
+      expect(loadNextPageSpy).toHaveBeenCalledOnceWith({
+        sort: undefined,
+      });
+      expect(getListSpy).toHaveBeenCalledTimes(2);
+      expect(getListSpy).toHaveBeenCalledWith(
+        'trips',
+        {
+          sort: undefined,
+          pagination: { page: 2, limit: 20 },
+        },
+        undefined
+      );
+      expect(
+        fixture.debugElement.queryAll(By.directive(TripCardComponent)).length
+      ).toBe(5);
+    }));
+
+    it('should fetch the trips list with the selected sorting when the user changes the sorting', fakeAsync(() => {
+      const loadSpy = spyOn(tripsService.list, 'load');
+
+      setupComponent();
+
+      tick();
+      fixture.detectChanges();
+
+      const select = fixture.debugElement.query(By.css('select'));
+      select.triggerEventHandler('change', {
+        target: { value: '{"field":"title","order":"ASC"}' },
+      });
+
+      tick();
+      fixture.detectChanges();
+
+      expect(loadSpy).toHaveBeenCalledWith({
+        sort: { field: 'title', order: 'ASC' },
+        pagination: component.INITIAL_PAGINATION,
+      });
+    }));
+
+    it('should call the load method with the default sorting when the user resets the sorting', fakeAsync(() => {
+      const loadSpy = spyOn(tripsService.list, 'load');
+
+      setupComponent();
+
+      tick();
+      fixture.detectChanges();
+
+      const select = fixture.debugElement.query(By.css('select'));
+      select.triggerEventHandler('change', {
+        target: { value: '' },
+      });
+
+      tick();
+      fixture.detectChanges();
+
+      expect(loadSpy).toHaveBeenCalledWith({
+        sort: undefined,
+        pagination: component.INITIAL_PAGINATION,
+      });
+    }));
+
+    it('should call always the load method with the default pagination when the user applies some sorting', fakeAsync(() => {
+      const getListSpy = spyOn(apiService, 'getList').and.returnValue(
+        Promise.resolve({
+          items: [
+            buildTripResponseMock({ id: '1', title: 'Trip 1' }),
+            buildTripResponseMock({ id: '2', title: 'Trip 2' }),
+            buildTripResponseMock({ id: '3', title: 'Trip 3' }),
+          ],
+          limit: 20,
+          page: 1,
+          total: 5,
+        })
+      );
+
+      setupComponent();
+
+      tick();
+      fixture.detectChanges();
+
+      const loadMoreButton = fixture.debugElement.query(
+        By.css('[data-testid="load-more-trips__button"]')
+      );
+
+      loadMoreButton.nativeElement.click();
+
+      tick();
+      fixture.detectChanges();
+
+      const select = fixture.debugElement.query(By.css('select'));
+      select.triggerEventHandler('change', {
+        target: { value: '{"field":"title","order":"ASC"}' },
+      });
+
+      tick();
+      fixture.detectChanges();
+
+      expect(getListSpy).toHaveBeenCalledTimes(3);
+      expect(getListSpy.calls.allArgs()).toEqual([
+        [
+          'trips',
+          { pagination: { page: 1, limit: 20 }, sort: undefined },
+          undefined,
+        ],
+        [
+          'trips',
+          { pagination: { page: 2, limit: 20 }, sort: undefined },
+          undefined,
+        ],
+        [
+          'trips',
+          {
+            sort: { field: 'title', order: 'ASC' },
+            pagination: { page: 1, limit: 20 },
+          },
+          undefined,
+        ],
+      ]);
     }));
   });
 });
