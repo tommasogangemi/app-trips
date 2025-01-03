@@ -1,6 +1,12 @@
 <div>
   <div class="flex justify-between mb-1">
-    <button ba variant="text" class="-ml-2 underline" (click)="location.back()">
+    <button
+      data-testid="trip-detail-content__back-button"
+      ba
+      variant="text"
+      class="-ml-2 underline"
+      (click)="location.back()"
+    >
       <fa-icon ngProjectAs="ba-btn-icon" [icon]="backArrowIcon" />
       Back
     </button>
