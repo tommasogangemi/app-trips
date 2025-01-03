@@ -279,6 +279,18 @@ describe('TripsListComponent', () => {
       tick();
       fixture.detectChanges();
 
+      getListSpy.and.returnValue(
+        Promise.resolve({
+          items: [
+            buildTripResponseMock({ id: '4', title: 'Trip 4' }),
+            buildTripResponseMock({ id: '5', title: 'Trip 5' }),
+          ],
+          limit: 20,
+          page: 2,
+          total: 5,
+        })
+      );
+
       const loadMoreButton = fixture.debugElement.query(
         By.css('[data-testid="load-more-trips__button"]')
       );
