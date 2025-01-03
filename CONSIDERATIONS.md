@@ -45,6 +45,10 @@ But I wasn't sure it required such a solution. Also since the catalog of trips p
 
 ### UI
 
+#### Loading strategies
+
+I applied a very simple loading strategy with a circular progress bar and nothing more. If I had more time I would definitely have created a skeleton loader component to represent the trip card, and displayed an array of those, similar to how [Airbnb does](https://www.airbnb.it/), and I would have followed the same approach for the trip detail page.
+
 #### Trips detail page
 
 I evaluated some different layout options for the trip detail page, all of which can be seen [here](https://www.figma.com/board/CS37a7UwSCFpRILqyJOAXd/BA-App?node-id=40-127&t=SKSGILpXnc55Pudf-0).
