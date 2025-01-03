@@ -1,7 +1,13 @@
 ## Considerations on the project
 
+The project can be found deployed on vercel at [this link](https://app-trips.vercel.app/).
+
 This is a list of considerations that went through my mind when building the project
 and a series of suggestions for features/improvements that I would have liked to add if I had more time.
+
+### Branding
+
+I kinda dropped the ball on this, but the branding I applied is more "BizAway centered" that what is suggested in the assignment. All components and code are branded as `ba` for BizAway. It would likely have been more appropriate to brand them as `at` for `App-trips`.
 
 ### Http interactions
 
