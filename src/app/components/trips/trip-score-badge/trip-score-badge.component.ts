@@ -7,7 +7,6 @@ import { TooltipComponent } from '../../lib/tooltip/tooltip.component';
   selector: 'ba-trip-score-badge',
   imports: [TitleCasePipe, TooltipComponent],
   templateUrl: './trip-score-badge.component.html',
-  styleUrl: './trip-score-badge.component.css',
 })
 export class TripScoreBadgeComponent {
   score = input.required<TripScore>();

@@ -25,7 +25,7 @@ export class TripsListComponent {
   tripsService = inject(TripsService);
   listViewService = new ListViewService('trips-list');
 
-  private INITIAL_PAGINATION: ListPaginationPayload = { page: 1, limit: 20 };
+  readonly INITIAL_PAGINATION: ListPaginationPayload = { page: 1, limit: 20 };
 
   private refetchListEffect = effect(() => {
     this.tripsService.list.load({
