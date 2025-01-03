@@ -1,7 +1,7 @@
 import { TripResponse } from '../../resources/trips/trips';
 
 export const buildTripResponseMock = (
-  overrides: Partial<TripResponse>
+  overrides: Partial<TripResponse> = {}
 ): TripResponse => ({
   id: '1',
   title: 'Test Trip',
