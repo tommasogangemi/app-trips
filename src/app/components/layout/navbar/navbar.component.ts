@@ -4,11 +4,17 @@ import { ButtonComponent } from '../../lib/button/button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import { TripsService } from '../../../services/TripsService/trips.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'ba-navbar',
-  imports: [NgOptimizedImage, ButtonComponent, FontAwesomeModule],
+  imports: [
+    NgOptimizedImage,
+    ButtonComponent,
+    FontAwesomeModule,
+    RouterLink,
+    RouterLinkActive,
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })

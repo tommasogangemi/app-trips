@@ -33,7 +33,7 @@ export class TripDetailContentComponent {
     navigator.clipboard.writeText(location.href);
 
     alert(
-      'The link to this page has been copied to the clipboard, you can now share it with your friends!'
+      'The link to this page has been copied to the clipboard, you can now share it with your friends!\n\n(This is just a placeholder for the functionality, it should be implemented in a more user friendly way in the future)'
     );
   }
 }

@@ -51,6 +51,30 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('logo', () => {
+    it('should display the logo', () => {
+      setupComponent();
+
+      const logo = fixture.debugElement.query(
+        By.css('[data-testid="navbar__logo"]')
+      );
+
+      expect(logo).toBeTruthy();
+    });
+
+    it('should redirect to the homepage when clicking on the logo', () => {
+      setupComponent();
+
+      const logo = fixture.debugElement.query(
+        By.css('[data-testid="navbar__logo"]')
+      );
+
+      logo.nativeElement.click();
+
+      expect(router.url).toBe('/');
+    });
+  });
+
   describe('Trip of the day button', () => {
     it('should render the trip of the day button', () => {
       setupComponent();

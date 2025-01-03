@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './layout.component';
 import { ROOT_TESTING_PROVIDERS } from '../../../utils/testing';
+import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, RouterModule.forRoot([])],
       providers: ROOT_TESTING_PROVIDERS,
     }).compileComponents();
   });
